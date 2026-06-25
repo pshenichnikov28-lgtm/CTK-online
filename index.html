@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СТК - Онлайн</title>
+    <style>
+        /* Сброс стилей и базовые шрифты */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+
+        /* --- Шапка (Тёмно-серая) --- */
+        header {
+            background-color: #2d2d2d;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            border-bottom: 1px solid #444;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: #FFC800; /* Желтый акцент в логотипе */
+        }
+
+        .auth-links {
+            font-size: 14px;
+            color: #cccccc;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* --- Центральная панель (ЖЕЛТАЯ) --- */
+        .hero-section {
+            background-color: #FFC800; /* Желтый фон */
+            padding: 60px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px 60px;
+            color: #111111; /* Текст на желтом фоне черный */
+        }
+
+        .hero-card {
+            flex: 1;
+            min-width: 260px;
+            max-width: 380px;
+        }
+
+        .hero-card h2 {
+            font-size: 22px;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+
+        .hero-card p {
+            font-size: 14px;
+            color: #333333;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        /* Инпуты */
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 50px;
+            border: 2px solid #111; /* Черная обводка */
+            margin-bottom: 12px;
+            font-size: 15px;
+            outline: none;
+            background-color: #ffffff;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Кнопки (ТЕПЕРЬ ЧЕРНЫЕ) */
+        .btn-black {
+            background-color: #111111; /* Черная кнопка */
+            color: #ffffff;
+            border: none;
+            padding: 14px 20px;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-black:hover {
+            background-color: #333333;
+        }
+
+        .btn-icon {
+            width: 54px;
+            padding: 0;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        /* Стрелка между городами (ТЕПЕРЬ ЧЕРНАЯ) */
+        .city-swap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .city-swap input {
+            flex: 1;
+        }
+
+        .swap-arrow {
+            background: #111111; /* Черная стрелка */
+            color: #ffffff;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .price-info {
+            text-align: center;
+            font-size: 13px;
+            color: #333333;
+            font-weight: 500;
+            margin: 18px 0;
+        }
+
+        /* --- Белая часть с услугами --- */
+        .services-section {
+            background-color: #ffffff;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-section h2 {
+            font-size: 30px;
+            margin-bottom: 30px;
+            color: #111;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background-color: #f8f8f8;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid #eeeeee;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Желтые акценты в карточках (для связи с дизайном) */
+        .service-card h3::before {
+            content: "■ ";
+            color: #FFC800;
+        }
+
+        /* --- Мобильная адаптация --- */
+        @media (max-width: 600px) {
+            header {
+                padding: 12px 16px;
+            }
+            .logo {
+                font-size: 20px;
+            }
+            .auth-links {
+                font-size: 12px;
+            }
+            .hero-section {
+                padding: 40px 16px;
+                gap: 30px;
+            }
+            .hero-card {
+                min-width: 100%;
+                max-width: 100%;
+            }
+            .hero-card h2 {
+                font-size: 20px;
+            }
+            .city-swap {
+                flex-wrap: wrap;
+            }
+            .swap-arrow {
+                width: 100%;
+                border-radius: 50px;
+                height: 44px;
+            }
+            .services-section {
+                padding: 40px 16px;
+            }
+            .services-section h2 {
+                font-size: 24px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo">
+            <span>Серовская Транспортная Компания</span>
+        </div>
+        <div class="auth-links">
+            Личный кабинет &nbsp;👤
+        </div>
+    </header>
+
+    <!-- Главная ЖЕЛТАЯ панель -->
+    <section class="hero-section">
+        
+        <!-- Блок 1 -->
+        <div class="hero-card">
+            <h2>Управлять заказом</h2>
+            <div class="input-group">
+                <input type="text" placeholder="Номер заказа">
+                <button class="btn-black btn-icon">🔍</button>
+            </div>
+            <p>Не знаете номер заказа?</p>
+        </div>
+
+        <!-- Блок 2 -->
+        <div class="hero-card">
+            <h2>Отправить груз</h2>
+            <div class="city-swap">
+                <input type="text" placeholder="Откуда (г. Москва)">
+            </div>
+            <div class="swap-arrow">⇅</div>
+            <div class="city-swap">
+                <input type="text" placeholder="Куда (г. Санкт-Петербург)">
+            </div>
+            <div class="price-info">от 952 ₽, прибытие — через 1 день</div>
+            <button id="calcBtn" class="btn-black">Рассчитать и заказать</button>
+        </div>
+
+        <!-- Блок 3 -->
+        <div class="hero-card">
+            <h2>Нужна помощь?</h2>
+            <p>Ответы на вопросы, решения проблем, информация об услугах, адресах и способах связи</p>
+            <br>
+            <button class="btn-black">→ Перейти в помощь</button>
+        </div>
+
+    </section>
+
+    <!-- Услуги -->
+    <section class="services-section">
+        <h2>Услуги компании СТК</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Грузоперевозки</h3>
+                <p>Перевозка сборных и полных грузов по России и странам СНГ. Доставка "от двери до двери".</p>
+            </div>
+            <div class="service-card">
+                <h3>Складское хранение</h3>
+                <p>Прием, хранение и обработка грузов на складах. Ответственное хранение и комплектация заказов.</p>
+            </div>
+            <div class="service-card">
+                <h3>Авиаперевозки</h3>
+                <p>Срочная доставка грузов самолетами по России и международным направлениям.</p>
+            </div>
+            <div class="service-card">
+                <h3>Железнодорожные перевозки</h3>
+                <p>Экономичные перевозки крупных партий грузов в вагонах и контейнерах.</p>
+            </div>
+            <div class="service-card">
+                <h3>Страхование грузов</h3>
+                <p>Защита вашего груза на всех этапах транспортировки. Удобное оформление полиса.</p>
+            </div>
+            <div class="service-card">
+                <h3>Экспедирование</h3>
+                <p>Полное сопровождение груза: оформление документов, отслеживание, таможенное оформление.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const calcBtn = document.getElementById('calcBtn');
+        if (calcBtn) {
+            calcBtn.addEventListener('click', function() {
+                alert('✅ Заявка отправлена! Наш менеджер свяжется с вами для уточнения деталей.');
+            });
+        }
+    </script>
+
+</body>
+</html>
